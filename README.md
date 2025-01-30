@@ -1,19 +1,19 @@
 # Lightweight Data Converter for LLM Windows
 
 ## Description
-Converts PDFs, text files, and images to lightweight text files/CSV format to maximize LLM content window.
+
+A minimal, extensible command-line tool for converting files (PDF, text, images) to either plain text or CSV format. Useful for preparing content for language models or similar applications.
 
 ## Features
-- Feature 1
-- Feature 2
-- Feature 3
+
+- **PDF to Text** using PyPDF2  
+- **Image to Text** using pytesseract (OCR)  
+- **Text to CSV** using Python's built-in `csv` module  
+- **Easily Extensible** via a factory design pattern
 
 ## Installation
-TODO
 
-## Usage
-TODO
-
-## Dependencies
-- PyPDF2
-- pytesseract pillow
+1. **Clone or Download** this repository.  
+2. **Install Dependencies**:
+   ```bash
+   pip install PyPDF2 pytesseract pillow

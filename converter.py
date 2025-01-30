@@ -61,7 +61,7 @@ class ConverterFactory:
 def main():
     parser = argparse.ArgumentParser(description="CLI for converting files to text or CSV.")
     parser.add_argument("input_file", help="Path to the input file.")
-    parser.add_argument("output_path", default=None, help="Path to the output file.")
+    parser.add_argument("--output", default=None, help="Path to the output file.")
     parser.add_argument("--to-csv", action="store_true", help="Convert the input file to CSV.")
     
     args = parser.parse_args()
