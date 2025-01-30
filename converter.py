@@ -12,15 +12,38 @@ class BaseConverter:
 
 class PDFConverter(BaseConverter):
     def convert(self, input_file_path, output_path, **kwargs):
-        raise NotImplemented
+        text_content = []
+        with open(input_file_path, "rb") as file:
+            reader = PyPDF2.PdfReader(file)
+            for page in reader.pages:
+                text_content.append(page.extract_text())
+        
+        with open(output_path, "w", encoding="utf-8") as output_file:
+            output_file.write("\n".join(text_content))
 
 class ImageConverter(BaseConverter):
     def convert(self, input_file_path, output_path, **kwargs):
-        raise NotImplemented
+        img = Image.open(input_file_path)
+        text = pytesseract.image_to_string(img)
+
+        with open(output_path, "w", encoding="utf-8") as output_file:
+            output_file.write(text)
 
 class TextConverter(BaseConverter):
     def convert(self, input_file_path, output_path, **kwargs):
-        raise NotImplemented
+        to_csv = kwargs.get("to_csv", False)
+
+        if to_csv:
+            with open(input_file_path, "r", encoding="utf-8") as input_file, \
+                 open(output_path, "w", newline="", encoding="utf-8") as output_file:
+                writer = csv.writer(output_file)
+
+                for line in input_file:
+                    writer.writerow([line.strip()])
+        else:
+            with open(input_file_path, "r", encoding="utf-8") as input_file, \
+                 open(output_path, "w", encoding="utf-8") as output_file:
+                output_file.write(input_file.read())
 
 class ConverterFactory:
     @staticmethod
